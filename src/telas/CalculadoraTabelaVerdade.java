@@ -103,7 +103,7 @@ public class CalculadoraTabelaVerdade extends JFrame {
 		var lblImgJirayaVerdade = new JLabel("");
 		lblImgJirayaVerdade.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblImgJirayaVerdade.setIcon(new ImageIcon(CalculadoraTabelaVerdade.class.getResource("/imagens/JirayaVerdade.jpg")));
-		lblImgJirayaVerdade.setBounds(86, 392, 500, 186);
+		lblImgJirayaVerdade.setBounds(85, 412, 500, 186);
 		pVisor.add(lblImgJirayaVerdade);
 		
 		var tAreaDigitacao = new JTextArea();
@@ -171,8 +171,10 @@ public class CalculadoraTabelaVerdade extends JFrame {
 		pVisor.add(tExibicao);
 		
 		var barraRolagem = new JScrollPane(tExibicao);
+		barraRolagem.setAutoscrolls(true);
+		barraRolagem.setBackground(Color.DARK_GRAY);
 		barraRolagem.setVisible(true);
-		barraRolagem.setBounds(10, 197, 640, 412);
+		barraRolagem.setBounds(10, 197, 640, 186);
 		pVisor.add(barraRolagem);
 	}
 }

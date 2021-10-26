@@ -32,11 +32,11 @@ public class TabelaVerdadeUtil {
 		Integer qtdVariaveis = lVariaveis.size();
 		setTamanhoPosibilidades(OperacoesMatematicasUtil.realizarPotenciacao(2, qtdVariaveis));
 		setTamanhoExpressoes(capturaQtdOperadores(expressao)+qtdVariaveis);
-		setMatrizExibicao(new String[tamanhoExpressoes][tamanhoPosibilidades+1]);
+		setMatrizExibicao(new String[getTamanhoExpressoes()][getTamanhoPosibilidades()+1]);
 		
 		adicionarValoresPossibilidades(lVariaveis);
 		
-		return matrizExibicao; 
+		return getMatrizExibicao(); 
 	}
 	
 	/**
@@ -313,7 +313,7 @@ public class TabelaVerdadeUtil {
 				if (!bEncontrouColuna)
 					break;
 				
-				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
+				for(var lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
 					if (lIdxLinha == 0){
 						getMatrizExibicao()[lIdxColuna][lIdxLinha] = String.valueOf(expressao.charAt(iIdxExpressao)) + 
 																String.valueOf(expressao.charAt(iIdxExpressao + 1));
@@ -336,15 +336,22 @@ public class TabelaVerdadeUtil {
 	 */
 	public static void realizaExibicaoMatriz(String[][] matrizExibicao, JTable tExibicao){
 		String cabecalho[] = new String[getTamanhoExpressoes()];
-		String conteudo[][] = new String[getTamanhoExpressoes()][getTamanhoPosibilidades()];
+		String conteudoTemp[][] = new String[getTamanhoExpressoes()][getTamanhoPosibilidades()];
+		String conteudo[][] = new String[getTamanhoPosibilidades()][getTamanhoExpressoes()];
 		
-		for (var i = 0; i < getTamanhoExpressoes(); i++) {
-			for (var j = 0; j < getTamanhoPosibilidades()+1; j++) {
-				if(j == 0) {
-					cabecalho[i] = matrizExibicao[i][j];
+		for (var l = 0; l < getTamanhoExpressoes(); l++) {
+			for (var c = 0; c < getTamanhoPosibilidades()+1; c++) {
+				if(c == 0) {
+					cabecalho[l] = matrizExibicao[l][c];
 				}else {
-					conteudo[i][j-1]= matrizExibicao[i][j];
+					conteudoTemp[l][c-1] = matrizExibicao[l][c];
 				}
+			}
+		}
+		
+		for (var l = 0; l < conteudoTemp.length; l++) {
+			for (var c = 0; c < conteudoTemp[0].length; c++) {
+				conteudo[c][l] = conteudoTemp[l][c];
 			}
 		}
 		
