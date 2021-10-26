@@ -30,26 +30,37 @@ public class TabelaVerdadeUtil {
 		ValidacaoCalculadoraTabelaVerdade.atribuirListaVariaveis(expressao);
 		List<String> lVariaveis = ValidacaoCalculadoraTabelaVerdade.getListaVariaveis();
 		Integer qtdVariaveis = lVariaveis.size();
-		Integer tamanhoPosibilidades = OperacoesMatematicasUtil.realizarPotenciacao(2, qtdVariaveis);
-		Integer tamanhoExpressoes = capturaQtdOperadores(expressao)+qtdVariaveis+1;
-		tamanhoPosibilidades = OperacoesMatematicasUtil.realizarPotenciacao(2, qtdVariaveis);
-		tamanhoExpressoes = capturaQtdOperadores(expressao)+qtdVariaveis+1;
-		var matrizExibicao = new String[tamanhoExpressoes][tamanhoPosibilidades+1];
+		setTamanhoPosibilidades(OperacoesMatematicasUtil.realizarPotenciacao(2, qtdVariaveis));
+		setTamanhoExpressoes(capturaQtdOperadores(expressao)+qtdVariaveis);
+		setMatrizExibicao(new String[tamanhoExpressoes][tamanhoPosibilidades+1]);
 		
-		Integer divisorZerosUns = tamanhoPosibilidades;
+		adicionarValoresPossibilidades(lVariaveis);
+		
+		return matrizExibicao; 
+	}
+	
+	/**
+	 * 
+	 * Adicionando valores de possibilidades
+	 *
+	 * @author Comandolli
+	 * @param lVariaveis
+	 */
+	public static void adicionarValoresPossibilidades(List<String> lVariaveis) {
+		Integer divisorZerosUns = getTamanhoPosibilidades();
 		for (var i = 0; i < lVariaveis.size(); i++) {
 			divisorZerosUns /= 2;
 			Integer contador = divisorZerosUns;
 			var isLigado = true;
-			for (var j = 0; j < tamanhoPosibilidades+1; j++) {
+			for (var j = 0; j < getTamanhoPosibilidades()+1; j++) {
 
 				if(j == 0) {
-					matrizExibicao[i][j] = String.valueOf(lVariaveis.get(i));
+					getMatrizExibicao()[i][j] = String.valueOf(lVariaveis.get(i));
 				}else if (isLigado)  {
-					matrizExibicao[i][j] = "1";
+					getMatrizExibicao()[i][j] = "1";
 					contador--;
 				}else {
-					matrizExibicao[i][j] = "0";
+					getMatrizExibicao()[i][j] = "0";
 					contador--;
 				}
 				
@@ -63,7 +74,6 @@ public class TabelaVerdadeUtil {
 				}
 			}
 		}
-		return matrizExibicao; 
 	}
 	
 	/**
@@ -111,10 +121,15 @@ public class TabelaVerdadeUtil {
 		return qtdOperadores;
 	}
 	
-	public static void realizarOperacaoAnd(String expressao) 
-	{
-		for (int iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao)
-		{
+	/**
+	 * 
+	 * Realiza operações de AND
+	 *
+	 * @author Yuri Martind
+	 * @param expressao
+	 */
+	public static void realizarOperacaoAnd(String expressao) {
+		for (var iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao){
 			if (ValidacaoCalculadoraTabelaVerdade.isOperadorLogico(expressao.charAt(iIdxExpressao)) == null)
 				continue;
 			
@@ -130,32 +145,26 @@ public class TabelaVerdadeUtil {
 			String[] aLinhaUm = null;
 			String[] aLinhaDois = null;
 			
-			int iColunaVazia = 0;
+			var iColunaVazia = 0;
 			
-			boolean bPreencheuTudo = false;
+			var bPreencheuTudo = false;
 			
-			for (int lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna)
-			{
-				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha)
-				{
-					if (lIdxLinha == 0)
-					{
-						if (matrizExibicao[lIdxColuna][lIdxLinha] == null)
-						{
+			for (var lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna){
+				for(var lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
+					if (lIdxLinha == 0){
+						if (getMatrizExibicao()[lIdxColuna][lIdxLinha] == null){
 							iColunaVazia = lIdxColuna;
 							bPreencheuTudo = true;
 							break;
 						}
 						
-						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao - 1))))
-						{
-							aLinhaUm = matrizExibicao[lIdxColuna];
+						if (getMatrizExibicao()[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao - 1)))){
+							aLinhaUm = getMatrizExibicao()[lIdxColuna];
 							break;
 						}
 						
-						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1))))
-						{
-							aLinhaDois = matrizExibicao[lIdxColuna];
+						if (getMatrizExibicao()[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1)))){
+							aLinhaDois = getMatrizExibicao()[lIdxColuna];
 							break;
 						}
 					}
@@ -172,19 +181,23 @@ public class TabelaVerdadeUtil {
 								  String.valueOf(expressao.charAt(iIdxExpressao)) + 
 								  String.valueOf(expressao.charAt(iIdxExpressao + 1));
 				
-			for (int iColunaUm = 1; iColunaUm <= aLinhaUm.length - 1; ++iColunaUm)
-			{
+			for (var iColunaUm = 1; iColunaUm <= aLinhaUm.length - 1; ++iColunaUm){
 				aLinhaPreenchida[iColunaUm] = (aLinhaUm[iColunaUm] == "1" && aLinhaDois[iColunaUm] == "1") ? "1" : "0";
 			}
 				
-			matrizExibicao[iColunaVazia] = aLinhaPreenchida;
+			getMatrizExibicao()[iColunaVazia] = aLinhaPreenchida;
 		}
 	}
 	
-	public static void realizarOperacaoOr(String expressao) 
-	{
-		for (int iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao)
-		{
+	/**
+	 * 
+	 * Realiza operações de OR
+	 *
+	 * @author Yuri Martins
+	 * @param expressao
+	 */
+	public static void realizarOperacaoOr(String expressao) {
+		for (int iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao) {
 			if (ValidacaoCalculadoraTabelaVerdade.isOperadorLogico(expressao.charAt(iIdxExpressao)) == null)
 				continue;
 			
@@ -204,27 +217,24 @@ public class TabelaVerdadeUtil {
 			
 			boolean bPreencheuTudo = false;
 			
-			for (int lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna)
-			{
-				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha)
-				{
-					if (lIdxLinha == 0)
-					{
-						if (matrizExibicao[lIdxColuna][lIdxLinha] == null)
-						{
+			for (int lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna){
+				
+				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
+					
+					if (lIdxLinha == 0){
+						
+						if (matrizExibicao[lIdxColuna][lIdxLinha] == null){
 							iColunaVazia = lIdxColuna;
 							bPreencheuTudo = true;
 							break;
 						}
 						
-						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao - 1))))
-						{
+						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao - 1)))){
 							aLinhaUm = matrizExibicao[lIdxColuna];
 							break;
 						}
 						
-						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1))))
-						{
+						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1)))){
 							aLinhaDois = matrizExibicao[lIdxColuna];
 							break;
 						}
@@ -241,8 +251,7 @@ public class TabelaVerdadeUtil {
 								  String.valueOf(expressao.charAt(iIdxExpressao)) + 
 								  String.valueOf(expressao.charAt(iIdxExpressao + 1));
 				
-			for (int iColunaUm = 1; iColunaUm <= aLinhaUm.length - 1; ++iColunaUm)
-			{
+			for (var iColunaUm = 1; iColunaUm <= aLinhaUm.length - 1; ++iColunaUm){
 				aLinhaPreenchida[iColunaUm] = (aLinhaUm[iColunaUm] == "1" || aLinhaDois[iColunaUm] == "1") ? "1" : "0";
 			}
 				
@@ -250,10 +259,15 @@ public class TabelaVerdadeUtil {
 		}
 	}
 	
-	public static void realizarOperacaoNot(String expressao) 
-	{
-		for (int iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao)
-		{
+	/**
+	 * 
+	 * Realiza operações de NOT
+	 *
+	 * @author Yuri Martins
+	 * @param expressao
+	 */
+	public static void realizarOperacaoNot(String expressao) {
+		for (int iIdxExpressao = 0; iIdxExpressao < expressao.length(); ++iIdxExpressao){
 			if (ValidacaoCalculadoraTabelaVerdade.isOperadorLogico(expressao.charAt(iIdxExpressao)) == null)
 				continue;
 			
@@ -266,22 +280,18 @@ public class TabelaVerdadeUtil {
 			Integer tamanhoPosibilidades = OperacoesMatematicasUtil.realizarPotenciacao(2, qtdVariaveis);
 			Integer tamanhoExpressoes = capturaQtdOperadores(expressao)+qtdVariaveis+1;
 			
-			boolean bEncontrouColuna = false;
-			boolean bPreencheuInformacao = false;
+			var bEncontrouColuna = false;
+			var bPreencheuInformacao = false;
 			
 			int lColuna = 0;
 			
-			for (int lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna)
-			{
-				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha)
-				{
-					if (lIdxLinha == 0)
-					{
+			for (int lIdxColuna = 0; lIdxColuna <= tamanhoExpressoes; ++lIdxColuna){
+				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
+					if (lIdxLinha == 0){
 						if (matrizExibicao[lIdxColuna][lIdxLinha] == null)
 							break;
 						
-						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1))))
-						{
+						if (matrizExibicao[lIdxColuna][lIdxLinha].equals(String.valueOf(expressao.charAt(iIdxExpressao + 1)))){
 							bEncontrouColuna = true;
 							continue;
 						}
@@ -290,51 +300,55 @@ public class TabelaVerdadeUtil {
 					if (!bEncontrouColuna)
 						break;
 					
-					if (!bPreencheuInformacao)
-					{
+					if (!bPreencheuInformacao){
 						lColuna = lIdxColuna;
 						bPreencheuInformacao = true;
 						break;
 					}
 				}
 				
-				if (matrizExibicao[lIdxColuna][0] != null)
+				if (getMatrizExibicao()[lIdxColuna][0] != null)
 					continue;
 				
 				if (!bEncontrouColuna)
 					break;
 				
-				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha)
-				{
-					if (lIdxLinha == 0)
-					{
-						matrizExibicao[lIdxColuna][lIdxLinha] = String.valueOf(expressao.charAt(iIdxExpressao)) + 
+				for(int lIdxLinha = 0; lIdxLinha < tamanhoPosibilidades + 1; ++lIdxLinha){
+					if (lIdxLinha == 0){
+						getMatrizExibicao()[lIdxColuna][lIdxLinha] = String.valueOf(expressao.charAt(iIdxExpressao)) + 
 																String.valueOf(expressao.charAt(iIdxExpressao + 1));
 						continue;
 					}
-					matrizExibicao[lIdxColuna][lIdxLinha] = matrizExibicao[lColuna][lIdxLinha] == "1" ? "0" : "1";
+					getMatrizExibicao()[lIdxColuna][lIdxLinha] = getMatrizExibicao()[lColuna][lIdxLinha] == "1" ? "0" : "1";
 				}
-				
 				break;
 			}
 		}
 	}
 	
+	/**
+	 * 
+	 * Realiza exibição da matriz na griedview
+	 *
+	 * @author Comandolli
+	 * @param matrizExibicao
+	 * @param tExibicao
+	 */
 	public static void realizaExibicaoMatriz(String[][] matrizExibicao, JTable tExibicao){
-	
-		String cabecalho[] = new String [tamanhoExpressoes];
-		String conteudo[][] = new String[tamanhoExpressoes][tamanhoPosibilidades];
+		String cabecalho[] = new String[getTamanhoExpressoes()];
+		String conteudo[][] = new String[getTamanhoExpressoes()][getTamanhoPosibilidades()];
 		
-		for (var i = 0; i < matrizExibicao.length; i++) {
-			for (var j = 0; j < matrizExibicao.length; j++) {
+		for (var i = 0; i < getTamanhoExpressoes(); i++) {
+			for (var j = 0; j < getTamanhoPosibilidades()+1; j++) {
 				if(j == 0) {
 					cabecalho[i] = matrizExibicao[i][j];
 				}else {
-					conteudo[i][j]= matrizExibicao[i][j];
+					conteudo[i][j-1]= matrizExibicao[i][j];
 				}
 			}
 		}
-		DefaultTableModel modelo = new DefaultTableModel(conteudo,cabecalho);
+		
+		var modelo = new DefaultTableModel(conteudo,cabecalho);
 		tExibicao.setModel(modelo);
 	}
 
@@ -344,6 +358,22 @@ public class TabelaVerdadeUtil {
 
 	public static void setMatrizExibicao(String[][] matrizExibicao) {
 		TabelaVerdadeUtil.matrizExibicao = matrizExibicao;
+	}
+
+	public static Integer getTamanhoPosibilidades() {
+		return tamanhoPosibilidades;
+	}
+
+	public static void setTamanhoPosibilidades(Integer tamanhoPosibilidades) {
+		TabelaVerdadeUtil.tamanhoPosibilidades = tamanhoPosibilidades;
+	}
+
+	public static Integer getTamanhoExpressoes() {
+		return tamanhoExpressoes;
+	}
+
+	public static void setTamanhoExpressoes(Integer tamanhoExpressoes) {
+		TabelaVerdadeUtil.tamanhoExpressoes = tamanhoExpressoes;
 	}
 	
 }

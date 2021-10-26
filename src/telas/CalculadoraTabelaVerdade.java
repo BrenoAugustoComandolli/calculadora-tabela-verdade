@@ -170,7 +170,7 @@ public class CalculadoraTabelaVerdade extends JFrame {
 		tExibicao.setBounds(10, 197, 640, 412);
 		pVisor.add(tExibicao);
 		
-		JScrollPane barraRolagem = new JScrollPane(tExibicao);
+		var barraRolagem = new JScrollPane(tExibicao);
 		barraRolagem.setVisible(true);
 		barraRolagem.setBounds(10, 197, 640, 412);
 		pVisor.add(barraRolagem);
