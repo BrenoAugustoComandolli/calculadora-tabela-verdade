@@ -1,7 +1,11 @@
 package funcoes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import operacoes.TabelaVerdadeUtil;
 
 public class ValidacaoCalculadoraTabelaVerdade {
 	
@@ -10,6 +14,15 @@ public class ValidacaoCalculadoraTabelaVerdade {
 	private ValidacaoCalculadoraTabelaVerdade() {
 	}
 	
+	/**
+	 * 
+	 * Realiza validação da expressão passada, realizando 
+	 * a seguencia de método de validação
+	 *
+	 * @author Comandolli
+	 * @param expressao
+	 * @return expressao
+	 */
 	public static String validarExpressao(String expressao) {
 		if(validarCaracteresDigitados(expressao) == null || 
 		   validarSeparadores(expressao) == null ||
@@ -46,7 +59,7 @@ public class ValidacaoCalculadoraTabelaVerdade {
 
 	/**
 	 * 
-	 * Verifica se há duplicidade de caracters 
+	 * Verifica se há duplicidade de caracteres 
 	 * que não são separadores
 	 *
 	 * EX: variável A em sequência na exprssão ficando - AA
@@ -63,12 +76,16 @@ public class ValidacaoCalculadoraTabelaVerdade {
 				umCharNovo = isOperadorLogico(expressao.charAt(i));
 			}
 			
-			if((i != 0) && umCharNovo != null && umCharAnterior.equals(umCharNovo)) {
+			if((i != 0) && umCharNovo != null && umCharAnterior != null && umCharAnterior.equals(umCharNovo)) {
 				return null;
 			}
 			
 			if(umCharNovo != null) {
 				umCharAnterior = expressao.charAt(i);
+			}
+			
+			if(isSeparador(expressao.charAt(i)) != null) {
+				umCharAnterior = null;
 			}
 		}
 		return expressao;
@@ -87,7 +104,7 @@ public class ValidacaoCalculadoraTabelaVerdade {
 		
 		for (var i = 0; i < getListaVariaveis().size(); i++) {
 			for (var j = 0; j < getListaVariaveis().size(); j++) {
-				if(expressao.charAt(i) == expressao.charAt(j) && i != j) {
+				if(getListaVariaveis().get(i).equals(getListaVariaveis().get(j)) && i != j) {
 					return null;
 				}
 			}
@@ -233,8 +250,8 @@ public class ValidacaoCalculadoraTabelaVerdade {
 	 * @return character
 	 */
 	public static Character isVariavelCalculo(Character character) {
-		if((character >= 'A' && character <= 'Z') ||
-		   (character >= 'a' && character <= 'z') &&
+		if(((character >= 'A' && character <= 'Z') ||
+		   (character >= 'a' && character <= 'z')) &&
 		   (character != 'V' && character != 'v')) {
 			return character;
 		}
@@ -406,10 +423,10 @@ public class ValidacaoCalculadoraTabelaVerdade {
 			Character umChar = isSeparadorAbertura(expressao.charAt(i));
 
 			if(umChar != null) {
-				for (var j = 0; j < expressao.length(); j++) {
+				for (var j = i; j < expressao.length(); j++) {
 					Character outroChar = isSeparadorAbertura(expressao.charAt(j));
 				
-					if((i != 0) && isPrecedenciaValida(umChar, outroChar) == null) {
+					if((j > i) && outroChar != null && isPrecedenciaValida(umChar, outroChar) == null) {
 						return null;
 					}
 				}
@@ -454,26 +471,29 @@ public class ValidacaoCalculadoraTabelaVerdade {
 	 * @return listaExpressoes
 	 */
 	public static List<String> separarExpressoesSeparadores(String comparacaoSeparadores) {
-		Boolean fechou = false;
-		Integer inicioExpressao = 0;
+		TabelaVerdadeUtil.dividirExpressoesSeparadores(comparacaoSeparadores);
 		List<String> listaExpressoes = new ArrayList<>();
-		for (var i = 0; i < comparacaoSeparadores.length(); i++) {
-
-			if (isSeparadorFechamento(comparacaoSeparadores.charAt(i)) != null) {
-				fechou = true;
-			}
-
-			if (isSeparadorAbertura(comparacaoSeparadores.charAt(i)) != null && fechou) {
-				listaExpressoes.add(comparacaoSeparadores.substring(inicioExpressao, i));
-				inicioExpressao = i;
-				fechou = false;
+		Map<String, String> listaExpressoesTemp = new HashMap<>();
+		listaExpressoesTemp.putAll(TabelaVerdadeUtil.getListaExpressoes());
+		listaExpressoesTemp.remove(TabelaVerdadeUtil.EXP_FINAL);
+		
+		for (Map.Entry<String, String> umItemCompacao : listaExpressoesTemp.entrySet()) {
+			for (Map.Entry<String, String> umItem : listaExpressoesTemp.entrySet()) {
+				if(umItem.getValue().contains(umItemCompacao.getKey())) {
+					Integer inicioSubstituicao = umItem.getValue().indexOf(umItemCompacao.getKey());
+					Integer finalSubstituicao = inicioSubstituicao+(umItemCompacao.getKey()).length();
+					
+					String identificadorTexto = listaExpressoesTemp.get(umItemCompacao.getKey());
+					
+					listaExpressoesTemp.replace(umItem.getKey(), 
+					umItem.getValue().substring(0,inicioSubstituicao)+
+					identificadorTexto+
+					umItem.getValue().substring(finalSubstituicao,umItem.getValue().length()));
+				}
 			}
 		}
-
-		if (Boolean.TRUE.equals(fechou)) {
-			listaExpressoes.add(comparacaoSeparadores.substring(inicioExpressao, comparacaoSeparadores.length()));
-		}
-
+		
+		listaExpressoes.addAll(listaExpressoesTemp.values());
 		return listaExpressoes;
 	}
 
@@ -532,6 +552,90 @@ public class ValidacaoCalculadoraTabelaVerdade {
 			}
 		}
 		setListaVariaveis(listaVariaveis);
+	}
+	
+	/**
+	 * 
+	 * Verifica se os próximos caracteres são 'EX'
+	 * 
+	 * se for retorna o próprio caracter anterior
+	 * se não retorna o próximo valor, que será uma
+	 * variável
+	 *
+	 * @author Comandolli
+	 * @param umaExpressao
+	 * @param indice
+	 * @return character
+	 */ 
+	public static Character isProximoExpressao(String umaExpressao, Integer indice) {
+		if(umaExpressao.charAt(indice+1) == 'E' && 
+		   indice+2 < umaExpressao.length() && 
+		   umaExpressao.charAt(indice+2) == 'X'){
+			return umaExpressao.charAt(indice);
+		}
+		return umaExpressao.charAt(indice+1);
+	}
+	
+	/**
+	 * 
+	 * Verifica se os caracteres anteriores são números
+	 *
+	 * se for retorna o caracter passado como parâmetro
+	 * se não retorna o caracter anterior, que será uma
+	 * variável
+	 *
+	 * @author Comandolli
+	 * @param umaExpressao
+	 * @param indice
+	 * @return character
+	 */
+	public static Character isAntesExpressao(String umaExpressao, Integer indice) {
+		if(umaExpressao.charAt(indice-1) >= '1' && 
+		   umaExpressao.charAt(indice-1) <= '9'){
+			return umaExpressao.charAt(indice);
+		}
+		return umaExpressao.charAt(indice-1);
+	}
+	
+	/**
+	 * 
+	 * Verifica se a expressão contém um AND sem o sinal '^'
+	 *
+	 * @author Comandolli
+	 * @param umaExpressaoValue
+	 * @return isExpressaoAndSemSinal
+	 */
+	public static Boolean isExpressaoAndSemSinal(String umaExpressaoValue) {
+		for (var i = 0; i < umaExpressaoValue.length(); i++) {
+			Character umChar = umaExpressaoValue.charAt(i);
+			if(isVariavelCalculo(umChar) != null && 
+			   i < umaExpressaoValue.length()-1 &&
+			   ValidacaoCalculadoraTabelaVerdade.isProximoExpressao(umaExpressaoValue, i).equals(umChar)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * Verifica se a expressão é uma expressão AND, 
+	 * a partir do indice informado
+	 *
+	 * @author Comandolli
+	 * @param umaExpressaoValue
+	 * @param umChar
+	 * @param indice
+	 * @return umChar
+	 */
+	public static Character isOperacaoAnd(String umaExpressaoValue, Character umChar, Integer indice) {
+		if((ValidacaoCalculadoraTabelaVerdade.isOperadorLogico(umChar) != null && umChar == '^') || 
+		   (ValidacaoCalculadoraTabelaVerdade.isVariavelCalculo(umChar) != null &&
+		    indice < umaExpressaoValue.length()-1 &&
+		    ValidacaoCalculadoraTabelaVerdade.isProximoExpressao(umaExpressaoValue, indice).equals(umChar))) {
+			return umChar;
+		}
+		return null;
 	}
 
 	public static List<String> getListaVariaveis() {

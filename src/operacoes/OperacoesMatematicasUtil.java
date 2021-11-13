@@ -61,7 +61,7 @@ public class OperacoesMatematicasUtil {
 	 * MULTIPLIÇAO
 	 *
 	 * @author Mayara
-	 * @param numeroDigitado
+	 * @param numeroDigitado 
 	 */
 	public static void calcular(BigDecimal numeroDigitado) {
 		switch (OperacoesMatematicasUtil.operacaoAtual) {

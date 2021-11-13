@@ -18,8 +18,6 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -39,24 +37,22 @@ public class CalculadoraConversao extends JFrame {
 	private static final String DIALOG = "Dialog";
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					var frame = new CalculadoraConversao();
-					frame.setVisible(true);
-					frame.setResizable(false);
-					frame.requestFocus();
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		Runnable run = () -> {
+			try {
+				var frame = new CalculadoraConversao();
+				frame.setVisible(true);
+				frame.setResizable(false);
+				frame.setLocationRelativeTo(null);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		});
+		};
+		EventQueue.invokeLater(run);
 	}
 
 	public CalculadoraConversao() { 
+		
 		setTitle("Calculadora de Convers\u00E3o");
-		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CalculadoraConversao.class.getResource("/imagens/akatsuki.png")));
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 715, 817);
@@ -111,6 +107,7 @@ public class CalculadoraConversao extends JFrame {
 		btnSubtracao.setBackground(Color.DARK_GRAY);
 		btnSubtracao.setFont(new Font(DIALOG, Font.PLAIN, 20));
 		btnSubtracao.setBounds(493, 73, 73, 53);
+		btnSubtracao.setFocusPainted(false);
 		planoFundo.add(btnSubtracao);
 		
 		var btnAdicao = new JButton("+");
@@ -118,6 +115,7 @@ public class CalculadoraConversao extends JFrame {
 		btnAdicao.setBackground(Color.DARK_GRAY);
 		btnAdicao.setFont(new Font(DIALOG, Font.PLAIN, 20));
 		btnAdicao.setBounds(493, 128, 73, 53);
+		btnAdicao.setFocusPainted(false);
 		planoFundo.add(btnAdicao);
 		
 		var btnMultiplicacao = new JButton("X");
@@ -125,6 +123,7 @@ public class CalculadoraConversao extends JFrame {
 		btnMultiplicacao.setBackground(Color.DARK_GRAY);
 		btnMultiplicacao.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnMultiplicacao.setBounds(493, 183, 73, 53);
+		btnMultiplicacao.setFocusPainted(false);
 		planoFundo.add(btnMultiplicacao);
 		
 		var btnCalcularResultado = new JButton("=");
@@ -135,15 +134,17 @@ public class CalculadoraConversao extends JFrame {
 		btnCalcularResultado.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnCalcularResultado.setBackground(SystemColor.activeCaption);
 		btnCalcularResultado.setBounds(493, 239, 73, 107);
+		btnCalcularResultado.setFocusPainted(false);
 		planoFundo.add(btnCalcularResultado);
 	
 		var btnNum0 = new JButton("0");
-		btnNum0.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum0.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/hidan0.png")));
 		btnNum0.setForeground(Color.WHITE);
 		btnNum0.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum0.setBackground(Color.BLACK);
 		btnNum0.setBounds(170, 353, 150, 87);
+		btnNum0.setFocusPainted(false);
+		btnNum0.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum0.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/hidan0.png")));
 		planoFundo.add(btnNum0);
 		
 		var btnNum1 = new JButton("1");
@@ -151,6 +152,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum1.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum1.setBackground(SystemColor.desktop);
 		btnNum1.setBounds(10, 73, 150, 87);
+		btnNum1.setFocusPainted(false);
+		btnNum1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum1.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/fotoBranco.png")));
 		planoFundo.add(btnNum1);
 		
 		var btnNum2 = new JButton("2");
@@ -158,6 +162,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum2.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum2.setBackground(SystemColor.desktop);
 		btnNum2.setBounds(170, 73, 150, 87);
+		btnNum2.setFocusPainted(false);
+		btnNum2.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum2.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/zetsu2.png")));
 		planoFundo.add(btnNum2);
 		
 		var btnNum3 = new JButton("3");
@@ -165,6 +172,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum3.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum3.setBackground(SystemColor.desktop);
 		btnNum3.setBounds(330, 73, 157, 87);
+		btnNum3.setFocusPainted(false);
+		btnNum3.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum3.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/konan3.png")));
 		planoFundo.add(btnNum3);
 		
 		var btnNum4 = new JButton("4");
@@ -172,6 +182,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum4.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum4.setBackground(SystemColor.desktop);
 		btnNum4.setBounds(10, 166, 150, 87);
+		btnNum4.setFocusPainted(false);
+		btnNum4.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum4.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/deidara4.png")));
 		planoFundo.add(btnNum4);
 		
 		var btnNum5 = new JButton("5");
@@ -179,6 +192,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum5.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum5.setBackground(SystemColor.desktop);
 		btnNum5.setBounds(170, 166, 150, 87);
+		btnNum5.setFocusPainted(false);
+		btnNum5.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum5.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/kakuzu5.png")));
 		planoFundo.add(btnNum5);
 		
 		var btnNum6 = new JButton("6");
@@ -186,20 +202,29 @@ public class CalculadoraConversao extends JFrame {
 		btnNum6.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum6.setBackground(SystemColor.desktop);
 		btnNum6.setBounds(330, 166, 157, 87);
+		btnNum6.setFocusPainted(false);
+		btnNum6.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/pain6.png")));
+		btnNum6.setHorizontalAlignment(SwingConstants.LEFT);
 		planoFundo.add(btnNum6);
 		
 		var btnNum7 = new JButton("7");
 		btnNum7.setForeground(Color.WHITE);
-		btnNum7.setFont(new Font("Dialog", Font.PLAIN, 16));
+		btnNum7.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum7.setBackground(SystemColor.desktop);
 		btnNum7.setBounds(10, 259, 150, 87);
+		btnNum7.setFocusPainted(false);
+		btnNum7.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum7.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sasori7.png")));
 		planoFundo.add(btnNum7);
 
 		var btnNum8 = new JButton("8");
 		btnNum8.setForeground(Color.WHITE);
-		btnNum8.setFont(new Font("Dialog", Font.PLAIN, 16));
+		btnNum8.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum8.setBackground(SystemColor.desktop);
 		btnNum8.setBounds(170, 259, 150, 87);
+		btnNum8.setFocusPainted(false);
+		btnNum8.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/kisame8.png")));
+		btnNum8.setHorizontalAlignment(SwingConstants.LEFT);
 		planoFundo.add(btnNum8);
 
 		var btnNum9 = new JButton("9");
@@ -207,6 +232,9 @@ public class CalculadoraConversao extends JFrame {
 		btnNum9.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnNum9.setBackground(SystemColor.desktop);
 		btnNum9.setBounds(330, 259, 157, 87);
+		btnNum9.setFocusPainted(false);
+		btnNum9.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNum9.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/itachi9.png")));
 		planoFundo.add(btnNum9);
 		
 		var btnLetraA = new JButton("A");
@@ -217,6 +245,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraA.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraA.setBackground(Color.BLACK);
 		btnLetraA.setBounds(10, 353, 150, 87);
+		btnLetraA.setFocusPainted(false);
 		planoFundo.add(btnLetraA);
 		
 		var btnLetraB = new JButton("B");
@@ -227,6 +256,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraB.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraB.setBackground(Color.BLACK);
 		btnLetraB.setBounds(330, 353, 157, 87);
+		btnLetraB.setFocusPainted(false);
 		planoFundo.add(btnLetraB);
 		
 		var btnLetraC = new JButton("C");
@@ -237,6 +267,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraC.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraC.setBackground(Color.BLACK);
 		btnLetraC.setBounds(10, 451, 150, 87);
+		btnLetraC.setFocusPainted(false);
 		planoFundo.add(btnLetraC);
 		
 		var btnLetraD = new JButton("D");
@@ -247,6 +278,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraD.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraD.setBackground(Color.BLACK);
 		btnLetraD.setBounds(170, 451, 150, 87);
+		btnLetraD.setFocusPainted(false);
 		planoFundo.add(btnLetraD);
 		
 		var btnLetraE = new JButton("E");
@@ -257,6 +289,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraE.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraE.setBackground(Color.BLACK);
 		btnLetraE.setBounds(330, 451, 157, 87);
+		btnLetraE.setFocusPainted(false);
 		planoFundo.add(btnLetraE);
 		
 		var btnLetraF = new JButton("F");
@@ -267,6 +300,7 @@ public class CalculadoraConversao extends JFrame {
 		btnLetraF.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLetraF.setBackground(Color.BLACK);
 		btnLetraF.setBounds(170, 549, 150, 87);
+		btnLetraF.setFocusPainted(false);
 		planoFundo.add(btnLetraF);
 		
 		var btnLimpar = new JButton("Limpar");
@@ -274,6 +308,10 @@ public class CalculadoraConversao extends JFrame {
 		btnLimpar.setFont(new Font(DIALOG, Font.PLAIN, 16));
 		btnLimpar.setBackground(Color.BLACK);
 		btnLimpar.setBounds(10, 11, 477, 53);
+		btnLimpar.setFocusPainted(false);
+		btnLimpar.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnLimpar.setSelectedIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sakura.png")));
+		btnLimpar.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sasuke.png")));
 		planoFundo.add(btnLimpar);
 		
 		var pVisor = new JPanel();
@@ -294,6 +332,7 @@ public class CalculadoraConversao extends JFrame {
 		btnVoltar.setFont(new Font(DIALOG, Font.PLAIN, 12));
 		btnVoltar.setBackground(Color.BLACK);
 		btnVoltar.setBounds(10, 11, 94, 23);
+		btnVoltar.setFocusPainted(false);
 		contentPane.add(btnVoltar);
 		
 		var lblNarutinho = new JLabel("");
@@ -303,110 +342,27 @@ public class CalculadoraConversao extends JFrame {
 		lblNarutinho.setBounds(603, 183, 57, 53);
 		planoFundo.add(lblNarutinho);
 		
-		rdbSaidaDecimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbSaidaDecimal.isSelected()) {
-					ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao);
-				}
-				rdbSaidaDecimal.setSelected(true);
-				rdbSaidaBinario.setSelected(false);
-				rdbSaidaHexadecimal.setSelected(false);
-			}
-		});
+		rdbSaidaDecimal.addActionListener(e -> selecionarTipoConversao(true, false, false, rdbSaidaDecimal, 
+		rdbSaidaBinario, rdbSaidaHexadecimal, tAreaDigitacao));
 		
-		rdbSaidaBinario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbSaidaBinario.isSelected()) {
-					ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao);
-				}
-				rdbSaidaDecimal.setSelected(false);
-				rdbSaidaBinario.setSelected(true);
-				rdbSaidaHexadecimal.setSelected(false);
-			}
-		});
+		rdbSaidaBinario.addActionListener(e -> selecionarTipoConversao(false, true, false, rdbSaidaDecimal, 
+		rdbSaidaBinario, rdbSaidaHexadecimal, tAreaDigitacao));
 		
-		rdbSaidaHexadecimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbSaidaHexadecimal.isSelected()) {
-					ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao);
-				}
-				rdbSaidaDecimal.setSelected(false);
-				rdbSaidaBinario.setSelected(false);
-				rdbSaidaHexadecimal.setSelected(true);
-			}
-		});
+		rdbSaidaHexadecimal.addActionListener(e -> selecionarTipoConversao(false, false, true, rdbSaidaDecimal, 
+		rdbSaidaBinario, rdbSaidaHexadecimal, tAreaDigitacao));
 		
-		btnSubtracao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				OperacoesMatematicasUtil.setOperacao(OperacoesMatematicasUtil.SUBTRACAO);
-				String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
-				try {
-					if(!valorSemPonto.equals("")) {
-						ValidacaoCalculadoraConversao.verificarAtribuicaoValorAtual(valorSemPonto, tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal);
-						tAreaDigitacao.setText("");
-					}
-				} catch (Exception e1) {
-					tAreaDigitacao.setText(ERRO_CONVERSAO);
-				}
-				planoFundo.requestFocusInWindow();
-			}
-		});
+		btnSubtracao.addActionListener(e -> realizarOperacaoBotao(tAreaDigitacao, OperacoesMatematicasUtil.SUBTRACAO, 
+		rdbEntradaBinario, rdbEntradaHexadecimal));
 		
-		btnAdicao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				OperacoesMatematicasUtil.setOperacao(OperacoesMatematicasUtil.SOMA);
-				String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
-				try {
-					if(!valorSemPonto.equals("")) {
-						ValidacaoCalculadoraConversao.verificarAtribuicaoValorAtual(valorSemPonto, tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal);
-						tAreaDigitacao.setText("");
-					}
-				} catch (Exception e1) {
-					tAreaDigitacao.setText(ERRO_CONVERSAO);
-				}
-				planoFundo.requestFocusInWindow();
-			}
-		});
+		btnAdicao.addActionListener(e -> realizarOperacaoBotao(tAreaDigitacao, OperacoesMatematicasUtil.SOMA, 
+		rdbEntradaBinario, rdbEntradaHexadecimal));
 		
-		btnMultiplicacao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				OperacoesMatematicasUtil.setOperacao(OperacoesMatematicasUtil.MULTIPLICACAO);
-				String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
-				try {
-					if(!valorSemPonto.equals("")) {
-						ValidacaoCalculadoraConversao.verificarAtribuicaoValorAtual(valorSemPonto, tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal);
-						tAreaDigitacao.setText("");
-					}
-				} catch (Exception e1) {
-					tAreaDigitacao.setText(ERRO_CONVERSAO);
-				}
-				planoFundo.requestFocusInWindow();
-			}
-		});
+		btnMultiplicacao.addActionListener(e -> realizarOperacaoBotao(tAreaDigitacao, OperacoesMatematicasUtil.MULTIPLICACAO, 
+		rdbEntradaBinario, rdbEntradaHexadecimal));
 		
-		btnCalcularResultado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(OperacoesMatematicasUtil.getOperacao() != null && OperacoesMatematicasUtil.getValorAtual() != null && !tAreaDigitacao.getText().equals("")) {
-					String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
-					try {
-						valorSemPonto = ValidacaoCalculadoraConversao.realizarConversao(rdbEntradaBinario, rdbEntradaHexadecimal, valorSemPonto);
-					} catch (Exception e1) { 
-						tAreaDigitacao.setText(ERRO_CONVERSAO);
-					}
-					OperacoesMatematicasUtil.calcular(new BigDecimal(valorSemPonto));
-					OperacoesMatematicasUtil.setValorAtual(ValidacaoCalculadoraConversao.convercaoValorFinal(OperacoesMatematicasUtil.getValorAtual(), rdbSaidaBinario, rdbSaidaHexadecimal));
-					ValidacaoCalculadoraConversao.alterarTipoNumeroFinal(rdbSaidaBinario, rdbSaidaHexadecimal, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal);
-					tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(OperacoesMatematicasUtil.getValorAtual(), rdbSaidaDecimal));
-					OperacoesMatematicasUtil.setOperacao("");
-					OperacoesMatematicasUtil.setValorAtual(null);
-					OperacoesMatematicasUtil.setTipoAtual(null);
-				}
-				planoFundo.requestFocusInWindow();
-			}
-		}); 
+		btnCalcularResultado.addActionListener(e -> calcularResultadoFinal(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal,
+		rdbEntradaDecimal, rdbSaidaBinario, rdbSaidaHexadecimal, rdbSaidaDecimal)); 
 		
-		btnNum1.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum1.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/fotoBranco.png")));
 		btnNum1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -418,250 +374,69 @@ public class CalculadoraConversao extends JFrame {
 			}
 		});
 		
-		btnNum0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "0");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow(); 
-			}
-		}); 
+		btnNum0.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "0")); 
+		btnNum1.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "1")); 
+		btnNum2.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "2")); 
+		btnNum3.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "3")); 
+		btnNum4.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "4"));
+		btnNum5.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "5"));
+		btnNum6.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "6"));
+		btnNum7.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "7"));
+		btnNum8.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "8"));
+		btnNum9.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "9"));
 		
-		btnNum1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "1");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
+		btnLetraA.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "A"));
+		btnLetraB.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "B"));
+		btnLetraC.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "C"));
+		btnLetraD.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "D"));
+		btnLetraE.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "E"));
+		btnLetraF.addActionListener(e -> adicionaValorNumericoBotao(tAreaDigitacao, rdbEntradaDecimal, rdbEntradaBinario, "F"));
 		
-		btnNum2.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum2.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/zetsu2.png")));
-		btnNum2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "2");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnNum3.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum3.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/konan3.png")));
-		btnNum3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "3");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
+		rdbEntradaBinario.addActionListener(e -> {
+			realizaConversaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 1);
+			lblItachiPlanoFundo.setVisible(true);
+			btnLetraA.setVisible(false);
+			btnLetraB.setVisible(false);
+			btnLetraC.setVisible(false);
+			btnLetraD.setVisible(false);
+			btnLetraE.setVisible(false);
+			btnLetraF.setVisible(false);
+			rdbEntradaDecimal.setSelected(false);
+			rdbEntradaBinario.setSelected(true);
+			rdbEntradaHexadecimal.setSelected(false);
+			realizaValidacaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal);
 		});
 		
-		btnNum4.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum4.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/deidara4.png")));
-		btnNum4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "4");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
+		rdbEntradaHexadecimal.addActionListener(e -> {
+			realizaConversaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 2);
+			lblItachiPlanoFundo.setVisible(false);
+			btnLetraA.setVisible(true);
+			btnLetraB.setVisible(true);
+			btnLetraC.setVisible(true);
+			btnLetraD.setVisible(true);
+			btnLetraE.setVisible(true);
+			btnLetraF.setVisible(true);
+			rdbEntradaDecimal.setSelected(false);
+			rdbEntradaBinario.setSelected(false);
+			rdbEntradaHexadecimal.setSelected(true);
+			realizaValidacaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal);
 		});
 		
-		btnNum5.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum5.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/kakuzu5.png")));
-		btnNum5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "5");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
+		rdbEntradaDecimal.addActionListener(e -> {
+			realizaConversaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 3);
+			lblItachiPlanoFundo.setVisible(true);
+			btnLetraA.setVisible(false);
+			btnLetraB.setVisible(false);
+			btnLetraC.setVisible(false);
+			btnLetraD.setVisible(false);
+			btnLetraE.setVisible(false);
+			btnLetraF.setVisible(false);
+			rdbEntradaDecimal.setSelected(true); 
+			rdbEntradaBinario.setSelected(false);
+			rdbEntradaHexadecimal.setSelected(false);
+			realizaValidacaoTrocaTipo(tAreaDigitacao, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal);
 		});
 		
-		btnNum6.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/pain6.png")));
-		btnNum6.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "6");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-
-		btnNum7.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum7.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sasori7.png")));
-		btnNum7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "7");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-
-		btnNum8.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/kisame8.png")));
-		btnNum8.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "8");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnNum9.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNum9.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/itachi9.png")));
-		btnNum9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "9");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnLetraA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "A");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnLetraB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "B");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnLetraC.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "C");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-
-		btnLetraD.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "D");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnLetraE.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "E");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		btnLetraF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tAreaDigitacao.setText(tAreaDigitacao.getText() + "F");
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.tirarSimboloNaoBinario(tAreaDigitacao, rdbEntradaBinario);
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-				planoFundo.requestFocusInWindow();
-			}
-		});
-		
-		rdbEntradaDecimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!tAreaDigitacao.getText().equals("")) {
-					tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
-					tAreaDigitacao.setText(ValidacaoCalculadoraConversao.realizaConversaoTrocaTipo(rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 3, tAreaDigitacao.getText()));
-				}
-				lblItachiPlanoFundo.setVisible(true);
-				btnLetraA.setVisible(false);
-				btnLetraB.setVisible(false);
-				btnLetraC.setVisible(false);
-				btnLetraD.setVisible(false);
-				btnLetraE.setVisible(false);
-				btnLetraF.setVisible(false);
-				rdbEntradaDecimal.setSelected(true); 
-				rdbEntradaBinario.setSelected(false);
-				rdbEntradaHexadecimal.setSelected(false);
-				
-				ValidacaoCalculadoraConversao.isNumeroDecimalTratando(tAreaDigitacao);
-				tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-			}
-		});
-		
-		rdbEntradaBinario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!tAreaDigitacao.getText().equals("")) {
-					tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
-					tAreaDigitacao.setText(ValidacaoCalculadoraConversao.realizaConversaoTrocaTipo(rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 1, tAreaDigitacao.getText()));
-				}
-				lblItachiPlanoFundo.setVisible(true);
-				btnLetraA.setVisible(false);
-				btnLetraB.setVisible(false);
-				btnLetraC.setVisible(false);
-				btnLetraD.setVisible(false);
-				btnLetraE.setVisible(false);
-				btnLetraF.setVisible(false);
-				rdbEntradaDecimal.setSelected(false);
-				rdbEntradaBinario.setSelected(true);
-				rdbEntradaHexadecimal.setSelected(false);
-				
-				ValidacaoCalculadoraConversao.isNumeroBinarioTratando(tAreaDigitacao);
-				tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-			}
-		});
-		
-		rdbEntradaHexadecimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!tAreaDigitacao.getText().equals("")) {
-					tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
-					tAreaDigitacao.setText(ValidacaoCalculadoraConversao.realizaConversaoTrocaTipo(rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, 2, tAreaDigitacao.getText()));
-				}
-				lblItachiPlanoFundo.setVisible(false);
-				btnLetraA.setVisible(true);
-				btnLetraB.setVisible(true);
-				btnLetraC.setVisible(true);
-				btnLetraD.setVisible(true);
-				btnLetraE.setVisible(true);
-				btnLetraF.setVisible(true);
-				rdbEntradaDecimal.setSelected(false);
-				rdbEntradaBinario.setSelected(false);
-				rdbEntradaHexadecimal.setSelected(true);
-				
-				ValidacaoCalculadoraConversao.isNumeroHexadecimalTratando(tAreaDigitacao);
-				tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
-				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
-			}
-		});
-
-		btnLimpar.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnLimpar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -672,22 +447,9 @@ public class CalculadoraConversao extends JFrame {
 				btnLimpar.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sakura.png")));
 			}
 		});
-		btnLimpar.setSelectedIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sakura.png")));
-		btnLimpar.setIcon(new ImageIcon(CalculadoraConversao.class.getResource("/imagens/sasuke.png")));
-		btnLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao);
-				planoFundo.requestFocusInWindow();
-			}
-		});
 		
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				var menu = new Menu();
-				menu.setVisible(true);
-				setVisible(false);
-			}
-		});
+		btnLimpar.addActionListener(e -> ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao));
+		btnVoltar.addActionListener(e -> voltarMenu());
 		
 		tAreaDigitacao.addKeyListener(new KeyAdapter() {
 			@Override
@@ -706,6 +468,176 @@ public class CalculadoraConversao extends JFrame {
 			}
 		});
 		
+	}
+	
+	/**
+	 * 
+	 * Retorna para o menu de opções 
+	 *
+	 * @author Comandolli
+	 */
+	private void voltarMenu() {
+		var menu = new Menu();
+		menu.setVisible(true);
+		setVisible(false);
+	}
+	
+	/**
+	 * 
+	 * Realiza troca de tipo de dado 
+	 * no componente de seleção
+	 *
+	 * @author Comandolli
+	 * @param selectedDecimal
+	 * @param selectedBinario
+	 * @param selectedHexadecimal
+	 * @param rdbDecimal
+	 * @param rdbBinario
+	 * @param rdbHexadecimal
+	 * @param tAreaDigitacao
+	 */
+	private void selecionarTipoConversao(Boolean selectedDecimal, Boolean selectedBinario, Boolean selectedHexadecimal,
+			                     JRadioButton rdbDecimal, JRadioButton rdbBinario, JRadioButton rdbHexadecimal,
+			                     JTextArea tAreaDigitacao) {
+		if(rdbDecimal.isSelected()) {
+			ValidacaoCalculadoraConversao.limparCalculadora(tAreaDigitacao);
+		}
+		rdbDecimal.setSelected(selectedDecimal);
+		rdbBinario.setSelected(selectedBinario);
+		rdbHexadecimal.setSelected(selectedHexadecimal);
+	}
+	
+	/**
+	 * 
+	 * Realiza a ação de clique na operação do botão,
+	 * definido a operação atual e caso seja uma sequencia de operações 
+	 * é feito o calculo temporário até clicar no resultado
+	 *
+	 * @author Comandolli
+	 * @param tAreaDigitacao
+	 * @param operacaoEscolhida
+	 * @param rdbBinario
+	 * @param rdbHexadecimal
+	 */
+	private void realizarOperacaoBotao(JTextArea tAreaDigitacao, String operacaoEscolhida, JRadioButton rdbBinario, JRadioButton rdbHexadecimal) {
+		OperacoesMatematicasUtil.setOperacao(operacaoEscolhida);
+		String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
+		try {
+			if(!valorSemPonto.equals("")) {
+				ValidacaoCalculadoraConversao.verificarAtribuicaoValorAtual(valorSemPonto, tAreaDigitacao, rdbBinario, rdbHexadecimal);
+				tAreaDigitacao.setText("");
+			}
+		} catch (Exception e1) {
+			tAreaDigitacao.setText(ERRO_CONVERSAO);
+		}
+	}
+	
+	/**
+	 * 
+	 * Realizar cálculo final do resultado, tirando os pontos, realizado as conversões
+	 * para decimal para realização das operações e convertendo para o tipo escolhido 
+	 * de exibição, depois de mostrado o resultado é limpo os valores e operações
+	 *
+	 * @author Comandolli
+	 * @param tAreaDigitacao
+	 * @param rdbEntradaBinario
+	 * @param rdbEntradaHexadecimal
+	 * @param rdbEntradaDecimal
+	 * @param rdbSaidaBinario
+	 * @param rdbSaidaHexadecimal
+	 * @param rdbSaidaDecimal
+	 */
+	private void calcularResultadoFinal(JTextArea tAreaDigitacao, JRadioButton rdbEntradaBinario, JRadioButton rdbEntradaHexadecimal, 
+										JRadioButton rdbEntradaDecimal, JRadioButton rdbSaidaBinario, JRadioButton rdbSaidaHexadecimal, 
+										JRadioButton rdbSaidaDecimal) { 
+		if(OperacoesMatematicasUtil.getOperacao() != null && OperacoesMatematicasUtil.getValorAtual() != null && !tAreaDigitacao.getText().equals("")) {
+			String valorSemPonto = tAreaDigitacao.getText().replace(".", "");
+			try {
+				valorSemPonto = ValidacaoCalculadoraConversao.realizarConversao(rdbEntradaBinario, rdbEntradaHexadecimal, valorSemPonto);
+			} catch (Exception e1) { 
+				tAreaDigitacao.setText(ERRO_CONVERSAO);
+			}
+			OperacoesMatematicasUtil.calcular(new BigDecimal(valorSemPonto));
+			OperacoesMatematicasUtil.setValorAtual(ValidacaoCalculadoraConversao.convercaoValorFinal(OperacoesMatematicasUtil.getValorAtual(), rdbSaidaBinario, rdbSaidaHexadecimal));
+			ValidacaoCalculadoraConversao.alterarTipoNumeroFinal(rdbSaidaBinario, rdbSaidaHexadecimal, rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal);
+			tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(OperacoesMatematicasUtil.getValorAtual(), rdbSaidaDecimal));
+			tAreaDigitacao.setText(tAreaDigitacao.getText().equals("") ? "0" : tAreaDigitacao.getText());
+			OperacoesMatematicasUtil.setOperacao("");
+			OperacoesMatematicasUtil.setValorAtual(null);
+			OperacoesMatematicasUtil.setTipoAtual(null);
+		}
+	}
+	
+	/**
+	 * 
+	 * Atribui o valor do botão a área de texto,
+	 * adicionando pontuação milhar se for decimal
+	 *
+	 * @author Comandolli
+	 * @param tAreaDigitacao
+	 * @param rdbEntradaDecimal
+	 * @param valorBotao
+	 */
+	private void adicionaValorNumericoBotao(JTextArea tAreaDigitacao, JRadioButton rdbEntradaDecimal, JRadioButton rdbEntradaBinario,
+			                                String valorBotao) {
+		if((rdbEntradaBinario.isSelected() && (valorBotao.equals("0") || 
+		    valorBotao.equals("1"))) || !rdbEntradaBinario.isSelected()) {
+			
+			tAreaDigitacao.setText(tAreaDigitacao.getText() + valorBotao);
+			tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
+			ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
+			
+			if(!valorBotao.equals("0") && !valorBotao.equals("1")) {
+				ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * Faz a validação de troca de tipo, tirando a pontuação e 
+	 * convertendo o valor para o selecionado 
+	 *
+	 * @author Comandolli
+	 * @param tAreaDigitacao
+	 * @param rdbEntradaBinario
+	 * @param rdbEntradaHexadecimal
+	 * @param rdbEntradaDecimal
+	 */
+	private void realizaConversaoTrocaTipo(JTextArea tAreaDigitacao, JRadioButton rdbEntradaBinario, JRadioButton rdbEntradaHexadecimal,
+			                               JRadioButton rdbEntradaDecimal, Integer tipoConversao) {
+		if(!tAreaDigitacao.getText().equals("")) {
+			tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
+			tAreaDigitacao.setText(ValidacaoCalculadoraConversao.realizaConversaoTrocaTipo(rdbEntradaBinario, rdbEntradaHexadecimal, rdbEntradaDecimal, tipoConversao, tAreaDigitacao.getText()));
+		}
+	}
+	
+	/**
+	 * 
+	 * Verifica qual está selecionado para então fazer a 
+	 * validação da troca dos tipos 
+	 *
+	 * @author Comandolli
+	 * @param tAreaDigitacao
+	 * @param rdbEntradaBinario
+	 * @param rdbEntradaHexadecimal
+	 * @param rdbEntradaDecimal
+	 */
+	private void realizaValidacaoTrocaTipo(JTextArea tAreaDigitacao, JRadioButton rdbEntradaBinario, JRadioButton rdbEntradaHexadecimal,
+	                                       JRadioButton rdbEntradaDecimal) {
+		if(rdbEntradaBinario.isSelected()) {
+			ValidacaoCalculadoraConversao.isNumeroBinarioTratando(tAreaDigitacao);
+			tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
+			ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
+		}else if(rdbEntradaHexadecimal.isSelected()) {
+			ValidacaoCalculadoraConversao.isNumeroHexadecimalTratando(tAreaDigitacao);
+			tAreaDigitacao.setText(tAreaDigitacao.getText().replace(".", ""));
+			ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
+		}else {
+			ValidacaoCalculadoraConversao.isNumeroDecimalTratando(tAreaDigitacao);
+			tAreaDigitacao.setText(ValidacaoCalculadoraConversao.adicionarPontuacaoMilhar(tAreaDigitacao.getText(), rdbEntradaDecimal));
+			ValidacaoCalculadoraConversao.setTextoDigitadoValidacao(tAreaDigitacao.getText());
+		}
 	}
 	
 }
